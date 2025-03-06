@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Wired Elements Test</title>
+		<script type="module">
+			import "https://unpkg.com/wired-elements@3.0.0-rc.6/lib/wired-elements.js?module";
+		</script>
+		<script type="module" src="./script.js"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Gloria+Hallelujah&family=Ubuntu:wght@300&display=swap"
+			rel="stylesheet" />
+		<link rel="stylesheet" href="./style.css" />
+	</head>
+	<body>
+		<section id="name-section">
+			<p id="name"></p>
+			<p id="description"></p>
+		</section>
+		<wired-divider></wired-divider>
+		<section id="stats-section">
+			<div id="str-label">STR:</div>
+			<div id="str-score"></div>
+
+			<div id="dex-label">DEX:</div>
+			<div id="dex-score"></div>
+
+			<div id="wil-label">WIL:</div>
+			<div id="wil-score"></div>
+
+			<div id="hp-label">HP:</div>
+			<div id="hp-score"></div>
+
+			<div id="armor-label">Armor:</div>
+			<div id="armor-score"></div>
+
+			<div id="deprived-label">Deprived:</div>
+			<wired-checkbox
+				id="deprived-checkbox"
+				type="checkbox"></wired-checkbox>
+		</section>
+		<wired-divider></wired-divider>
+		<section id="money-section"></section>
+		<section id="gear-section">
+			<ul id="inventory"></ul>
+		</section>
+		<wired-divider></wired-divider>
+		<section id="interface">
+			<wired-button elevation="3" id="generate-button">
+				<span style="text-transform: none"> re-generate </span>
+			</wired-button>
+		</section>
+	</body>
+</html>
