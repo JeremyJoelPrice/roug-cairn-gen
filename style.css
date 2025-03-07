@@ -13,6 +13,28 @@ body {
 	padding: 10px;
 }
 
+.flex-container {
+	display: flex;
+}
+
+wired-card {
+	min-width: 500px;
+	padding: 20px;
+	margin: 10px;
+	height: fit-content;
+}
+
+wired-button {
+	position: absolute;
+	right: 0;
+}
+
+ul {
+	margin-left: 80px;
+}
+
+/* CHARACTER SHEET */
+
 section {
 	margin: 10px;
 }
@@ -103,10 +125,8 @@ section {
 	padding-left: 8px;
 }
 
-#gear-section {
-	margin-left: 80px;
-}
-
 #gear-section * {
 	font-size: 12pt;
 }
+
+/* CLAN SHEET */

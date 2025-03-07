@@ -16,42 +16,53 @@
 		<link rel="stylesheet" href="./style.css" />
 	</head>
 	<body>
-		<section id="name-section">
-			<p id="name"></p>
-			<p id="description"></p>
-		</section>
-		<wired-divider></wired-divider>
-		<section id="stats-section">
-			<div id="str-label">STR:</div>
-			<div id="str-score"></div>
-
-			<div id="dex-label">DEX:</div>
-			<div id="dex-score"></div>
-
-			<div id="wil-label">WIL:</div>
-			<div id="wil-score"></div>
-
-			<div id="hp-label">HP:</div>
-			<div id="hp-score"></div>
-
-			<div id="armor-label">Armor:</div>
-			<div id="armor-score"></div>
-
-			<div id="deprived-label">Deprived:</div>
-			<wired-checkbox
-				id="deprived-checkbox"
-				type="checkbox"></wired-checkbox>
-		</section>
-		<wired-divider></wired-divider>
-		<section id="money-section"></section>
-		<section id="gear-section">
-			<ul id="inventory"></ul>
-		</section>
-		<wired-divider></wired-divider>
-		<section id="interface">
+		<div class="flex-container">
+		<wired-card id="character-sheet" elevation="2">
 			<wired-button elevation="3" id="generate-button">
-				<span style="text-transform: none"> re-generate </span>
+				<span style="text-transform: none"> re-generate character </span>
 			</wired-button>
-		</section>
+			<section id="name-section">
+				<p id="name"></p>
+				<p id="description"></p>
+			</section>
+			<wired-divider></wired-divider>
+			<section id="stats-section">
+				<div id="str-label">STR:</div>
+				<div id="str-score"></div>
+
+				<div id="dex-label">DEX:</div>
+				<div id="dex-score"></div>
+
+				<div id="wil-label">WIL:</div>
+				<div id="wil-score"></div>
+
+				<div id="hp-label">HP:</div>
+				<div id="hp-score"></div>
+
+				<div id="armor-label">Armor:</div>
+				<div id="armor-score"></div>
+
+				<div id="deprived-label">Deprived:</div>
+				<wired-checkbox
+					id="deprived-checkbox"
+					type="checkbox"></wired-checkbox>
+			</section>
+			<wired-divider></wired-divider>
+			<section id="money-section"></section>
+			<section id="gear-section">
+				<ul id="inventory"></ul>
+			</section>
+		</wired-card>
+		<wired-card id="clan-sheet" elevation="2">
+			<wired-button elevation="3" id="generate-clan-button">
+				<span style="text-transform: none"> re-generate clan </span>
+			</wired-button>
+			<section>
+				<p id="clan-name"></p>
+				<p id="clan-description"></p>
+			</section>
+		</wired-card>
+	</div>
+	</div>
 	</body>
 </html>

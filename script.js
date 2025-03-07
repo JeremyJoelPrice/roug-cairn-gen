@@ -11,12 +11,19 @@ import {
 	clothings,
 	virtues,
 	vices,
-	gear
+	gear,
+	norseNames,
+	clanValues
 } from "./tables.js";
 
+/* CHARACTER */
 document
 	.querySelector("#generate-button")
 	.addEventListener("click", () => generate());
+
+document
+	.querySelector("#generate-clan-button")
+	.addEventListener("click", () => generateClan());
 
 const sexes = {
 	MALE: {
@@ -215,22 +222,6 @@ function generate() {
 	displayCharacter(character);
 }
 
-function rollOnTable(table) {
-	return table[Math.floor(Math.random() * table.length)];
-}
-
-function d6() {
-	return Math.floor(Math.random() * 6) + 1;
-}
-
-function d20() {
-	return Math.floor(Math.random() * 20) + 1;
-}
-
-function capitalise(str) {
-	return str.charAt(0).toUpperCase() + str.substring(1);
-}
-
 function displayCharacter({
 	name,
 	description,
@@ -257,3 +248,104 @@ function displayCharacter({
 }
 
 generate();
+
+/* CLAN */
+
+function generateClan() {
+	// name
+	const name = `Clan ${rollOnTable(norseNames)}ung`;
+
+	// values
+	const confirmedValues = {
+		YES: { label: "quite", values: [] },
+		VERY_YES: { label: "extremely", values: [] },
+		NO: { label: "not", values: [] },
+		VERY_NO: { label: "extremely not", values: [] }
+	};
+
+	clanValues.forEach((v) => {
+		const stake = d6() + d6();
+		let descriptor = "";
+		switch (stake) {
+			case 12:
+				confirmedValues.VERY_YES.values.push(v);
+				break;
+			case 11:
+				confirmedValues.YES.values.push(v);
+				break;
+			case 3:
+				confirmedValues.NO.values.push(v);
+				break;
+			case 2:
+				confirmedValues.VERY_NO.values.push(v);
+				break;
+			default:
+				break;
+		}
+	});
+
+	let valuesHtml = "";
+
+	if (confirmedValues.YES.values.length > 0) {
+		valuesHtml += buildValuesList(confirmedValues.YES);
+	}
+
+	if (confirmedValues.VERY_YES.values.length > 0) {
+		valuesHtml += buildValuesList(confirmedValues.VERY_YES);
+	}
+
+	if (confirmedValues.NO.values.length > 0) {
+		valuesHtml += buildValuesList(confirmedValues.NO);
+	}
+
+	if (confirmedValues.VERY_NO.values.length > 0) {
+		valuesHtml += buildValuesList(confirmedValues.VERY_NO);
+	}
+
+	displayClan({ name, description: valuesHtml });
+}
+
+function buildValuesList({ label, values }) {
+	return `are ${label}:<br />
+	<ul>
+	${values.map((v) => `<li>${v}</li>`).join("")}
+	</ul>`;
+}
+
+function displayClan({ name, description }) {
+	console.log(name);
+	document.querySelector("#clan-name").innerHTML = name;
+	document.querySelector("#clan-description").innerHTML = description;
+}
+
+/* UTILITY */
+
+function rollOnTable(table) {
+	return table[Math.floor(Math.random() * table.length)];
+}
+
+function d6() {
+	return Math.floor(Math.random() * 6) + 1;
+}
+
+function d20() {
+	return Math.floor(Math.random() * 20) + 1;
+}
+
+function capitalise(str) {
+	return str.charAt(0).toUpperCase() + str.substring(1);
+}
+
+function buildList(words) {
+	if (words.length === 1) return words[0];
+	if (words.length === 2) return `${words[0]} and ${words[1]}`;
+	let list = "";
+	for (let i = 0; i < words.length - 1; i++) {
+		list += `${words[i]}, `;
+	}
+	list += `and ${words[words.length - 1]}`;
+
+	return list;
+}
+
+generateClan();
