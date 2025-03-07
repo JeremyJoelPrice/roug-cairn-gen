@@ -1374,28 +1374,51 @@ export const norseNames = [
 	"Yrsa"
 ];
 export const clanValues = [
-	"open to galdr magic",
-	"open to newcomers",
-	"open to seiðr magic",
-	"open to The Light",
-	"benefitting from dwarven creations",
-	"self-sufficient",
-	"wealthy",
-	"devoted to the old gods",
-	"performing horrific rituals",
-	"secretive about religious practices",
-	"tolerant of witchcraft/demonology",
-	"diplomatic over violent",
-	"in harmony with nature",
-	"in harmony with other clans",
-	"in harmony with non-humans",
-	"enforcing arbitrary behavioural taboos",
-	"charitable, both within and without the clan",
-	"corrupt",
-	"accepting death as a legal resolution/revenge",
-	"indulging in drunkeness as ceremony & bonding",
-	"hospitable from a sense of duty",
-	"embracing individual enterprise & opportunism",
-	"enforcing a strict code of honour",
-	"revering of war as a source of honour"
+	// openness to new things
+	{ YES: "open to newcomers", NO: "wary of newcomers" },
+	{ YES: "open to galdr magic", NO: "wary of galdr magic" },
+	{ YES: "open to seiðr magic", NO: "wary of seiðr magic" },
+	{ YES: "open to The Light", NO: "wary of The Light" },
+
+	// resources
+	{
+		YES: "well-off due to dwarven creations",
+		NO: "worse-off due to dwarven creations"
+	},
+	{ YES: "self-sufficient", NO: "dependent on trade/help" },
+	{ YES: "wealthy", NO: "poor" },
+
+	// religion
+	{ YES: "devoted to the old gods", NO: "opposed to the old gods" },
+	{ YES: "engaged in horrific rituals" },
+	{ YES: "secretive about religious practices" },
+	{
+		YES: "tolerant of witchcraft/demon worship",
+		NO: "intolerant of witchcraft/demon worship"
+	},
+
+	// relationships with others
+	{ YES: "diplomatic negotiators", NO: "violent negotiators" },
+	{ YES: "in harmony with nature", NO: "in conflict with nature" },
+	{ YES: "in harmony with other clans", NO: "in conflict with other clans" },
+	{ YES: "in harmony with non-humans", NO: "in conflict with non-humans" },
+
+	// values & conduct
+	{
+		YES: "dogmatic about social norms & taboos",
+		NO: "permissive about social norms & taboos"
+	},
+	{ YES: "charitable, even to outsiders", NO: "corrupt & exploitative" },
+	{ YES: "bloodthirsty when resolving legal matters", NO: "" },
+	{
+		YES: "fond of drunkeness to bond and mark occasions",
+		NO: "disapproving of drunkeness"
+	},
+	{ YES: "dutifully hospitable", NO: "private & unwelcoming" },
+	{
+		YES: "opportunistic & self-serving",
+		NO: "conformist & expect obedience"
+	},
+	{ YES: "strictly honour-bound", NO: "cynical & suspicious" },
+	{ YES: "reverent of war for honour", NO: "cynical & practical about war" }
 ];
