@@ -335,9 +335,6 @@ function generateStore() {
 		inventory.push(item);
 	}
 
-	inventory.push(Object.create(storeInventory[0]));
-	inventory.push(Object.create(storeInventory[0]));
-
 	displayStore(inventory);
 }
 
