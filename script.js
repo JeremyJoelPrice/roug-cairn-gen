@@ -312,7 +312,6 @@ function buildValuesList({ label, values }) {
 }
 
 function displayClan({ name, description }) {
-	console.log(name);
 	document.querySelector("#clan-name").innerHTML = name;
 	document.querySelector("#clan-description").innerHTML = description;
 }
@@ -337,19 +336,53 @@ function generateStore() {
 		inventory.push(item);
 	}
 
+	inventory.push(Object.create(storeInventory[0]));
+	inventory.push(Object.create(storeInventory[0]));
+
 	displayStore(inventory);
 }
 
 function displayStore(inventory) {
-	let html = "<ul>";
-	inventory.forEach((item) => {
-		html += `<li>${item.label}: ${item.price}sp</li>`;
+	// sort alphabetically
+	inventory.sort((a, b) => {
+		return a.label.localeCompare(b.label);
 	});
+
+	// handle duplicates
+	inventory = handleDuplicates(inventory);
+
+	// display
+	let html = "<ul>";
+	for (let i = 0; i < inventory.length; i++) {
+		const item = inventory[i];
+
+		html += "<li>";
+		if (item.count) {
+			html += `${item.count}x ${item.label}: ${item.price}sp each`;
+		} else {
+			html += `${item.label}: ${item.price}sp`;
+		}
+		html += "</li>";
+	}
+
 	html += "</ul>";
 	document.querySelector("#store-list").innerHTML = html;
 }
 
-generateStore()
+function handleDuplicates(inventory) {
+	for (let i = 0; i < inventory.length - 1; i++) {
+		const thisItem = inventory[i];
+		const nextItem = inventory[i + 1];
+
+		if (thisItem.label === nextItem.label) {
+			thisItem.count = thisItem.count ? thisItem.count + 1 : 2;
+			inventory.splice(i + 1, 1);
+		}
+	}
+	return inventory;
+}
+
+generateStore();
 
 /* UTILITY */
 
