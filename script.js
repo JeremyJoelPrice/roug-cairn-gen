@@ -13,7 +13,8 @@ import {
 	vices,
 	gear,
 	norseNames,
-	clanValues
+	clanValues,
+	storeInventory
 } from "./tables.js";
 
 /* CHARACTER */
@@ -24,6 +25,10 @@ document
 document
 	.querySelector("#generate-clan-button")
 	.addEventListener("click", () => generateClan());
+
+document
+	.querySelector("#generate-store-button")
+	.addEventListener("click", () => generateStore());
 
 const sexes = {
 	MALE: {
@@ -67,7 +72,7 @@ function generate() {
 	const clothing = rollOnTable(clothings).toLowerCase();
 	const virtue = rollOnTable(virtues).toLowerCase();
 	const vice = rollOnTable(vices).toLowerCase();
-	const age = 18 + d6() + d6();
+	const age = 18 + d(6) + d(6);
 
 	character.description = `${age}-year-old ${background} <br />${capitalise(
 		sex.subjectPronoun
@@ -80,16 +85,16 @@ function generate() {
 	} as ${vice}.`;
 
 	// stats
-	character.str = d6() + d6() + d6();
-	character.dex = d6() + d6() + d6();
-	character.wil = d6() + d6() + d6();
-	character.hp = d6();
+	character.str = d(6) + d(6) + d(6);
+	character.dex = d(6) + d(6) + d(6);
+	character.wil = d(6) + d(6) + d(6);
+	character.hp = d(6);
 	character.armor = 0;
 
 	// gear
 
 	//// armor
-	let roll = d20();
+	let roll = d(20);
 	let armor =
 		roll < 4
 			? undefined
@@ -104,7 +109,7 @@ function generate() {
 	}
 
 	//// helmet & shield
-	roll = d20();
+	roll = d(20);
 
 	if (roll === 20) {
 		character.inventory.push(gear.armor.SHIELD);
@@ -120,7 +125,7 @@ function generate() {
 	}
 
 	//// weapons
-	roll = d20();
+	roll = d(20);
 
 	let weaponChoices;
 	if (roll === 20) {
@@ -157,7 +162,7 @@ function generate() {
 	character.inventory.push(rollOnTable(gear.trinkets));
 
 	/// bonus items
-	roll = d20();
+	roll = d(20);
 	if (roll < 6) {
 		character.inventory.push(
 			Math.random() > 0.5
@@ -169,7 +174,7 @@ function generate() {
 	} else if (roll < 18) {
 		if (Math.random() > 0.5) {
 			// armor
-			roll = d20();
+			roll = d(20);
 			armor =
 				roll < 4
 					? undefined
@@ -184,7 +189,7 @@ function generate() {
 			}
 		} else {
 			// weapon
-			roll = d20();
+			roll = d(20);
 			if (roll === 20) {
 				weaponChoices = [
 					gear.weapons.HALBERD,
@@ -212,12 +217,12 @@ function generate() {
 			}
 		}
 	} else {
-		inventory.push(rollOnTable(gear.spellbooks));
+		character.inventory.push(rollOnTable(gear.spellbooks));
 	}
 
 	//// default items
 	character.inventory.push(...gear.default);
-	character.inventory.push({ label: `${d6() + d6() + d6()} gold pieces` });
+	character.inventory.push({ label: `${d(6) + d(6) + d(6)} gold pieces` });
 
 	displayCharacter(character);
 }
@@ -264,7 +269,7 @@ function generateClan() {
 	};
 
 	clanValues.forEach((v) => {
-		const stake = d6() + d6();
+		const stake = d(6) + d(6);
 		let descriptor = "";
 		switch (stake) {
 			case 12:
@@ -318,34 +323,48 @@ function displayClan({ name, description }) {
 	document.querySelector("#clan-description").innerHTML = description;
 }
 
+/* STORE*/
+
+function generateStore() {
+	const inventory = [];
+
+	const stockCount = d(6) + d(6) + d(6);
+
+	for (let i = 0; i < stockCount; i++) {
+		const item = Object.create(rollOnTable(storeInventory));
+
+		if (d(6) === 6) {
+			item.label = "Faulty " + item.label;
+			item.price = item.price > 10 ? d(6) : 1;
+		}
+
+		inventory.push(item);
+	}
+
+	displayStore(inventory);
+}
+
+function displayStore(inventory) {
+	let html = "<ul>";
+	inventory.forEach((item) => {
+		html += `<li>${item.label}: ${item.price}sp</li>`;
+	});
+	html += "</ul>";
+	document.querySelector("#store-list").innerHTML = html;
+}
+
 /* UTILITY */
 
 function rollOnTable(table) {
 	return table[Math.floor(Math.random() * table.length)];
 }
 
-function d6() {
-	return Math.floor(Math.random() * 6) + 1;
-}
-
-function d20() {
-	return Math.floor(Math.random() * 20) + 1;
+function d(sides) {
+	return Math.floor(Math.random() * sides) + 1;
 }
 
 function capitalise(str) {
 	return str.charAt(0).toUpperCase() + str.substring(1);
-}
-
-function buildList(words) {
-	if (words.length === 1) return words[0];
-	if (words.length === 2) return `${words[0]} and ${words[1]}`;
-	let list = "";
-	for (let i = 0; i < words.length - 1; i++) {
-		list += `${words[i]}, `;
-	}
-	list += `and ${words[words.length - 1]}`;
-
-	return list;
 }
 
 generateClan();
