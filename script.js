@@ -262,10 +262,8 @@ function generateClan() {
 
 	// values
 	const confirmedValues = {
-		YES: { label: "quite", values: [] },
-		VERY_YES: { label: "extremely", values: [] },
-		NO: { label: "not", values: [] },
-		VERY_NO: { label: "extremely not", values: [] }
+		YES: { label: "are", values: [] },
+		VERY_YES: { label: "are extemely", values: [] }
 	};
 
 	clanValues.forEach((v) => {
@@ -273,16 +271,20 @@ function generateClan() {
 		let descriptor = "";
 		switch (stake) {
 			case 12:
-				confirmedValues.VERY_YES.values.push(v);
+				// case 2:
+				if (v.NO && Math.random() > 0.5) {
+					confirmedValues.VERY_YES.values.push(v.NO);
+				} else {
+					confirmedValues.VERY_YES.values.push(v.YES);
+				}
 				break;
 			case 11:
-				confirmedValues.YES.values.push(v);
-				break;
 			case 3:
-				confirmedValues.NO.values.push(v);
-				break;
-			case 2:
-				confirmedValues.VERY_NO.values.push(v);
+				if (v.NO && Math.random() > 0.5) {
+					confirmedValues.YES.values.push(v.NO);
+				} else {
+					confirmedValues.YES.values.push(v.YES);
+				}
 				break;
 			default:
 				break;
@@ -299,19 +301,11 @@ function generateClan() {
 		valuesHtml += buildValuesList(confirmedValues.VERY_YES);
 	}
 
-	if (confirmedValues.NO.values.length > 0) {
-		valuesHtml += buildValuesList(confirmedValues.NO);
-	}
-
-	if (confirmedValues.VERY_NO.values.length > 0) {
-		valuesHtml += buildValuesList(confirmedValues.VERY_NO);
-	}
-
 	displayClan({ name, description: valuesHtml });
 }
 
 function buildValuesList({ label, values }) {
-	return `are ${label}:<br />
+	return `${label}:<br />
 	<ul>
 	${values.map((v) => `<li>${v}</li>`).join("")}
 	</ul>`;
