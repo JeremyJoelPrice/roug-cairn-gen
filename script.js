@@ -317,6 +317,8 @@ function displayClan({ name, description }) {
 	document.querySelector("#clan-description").innerHTML = description;
 }
 
+generateClan();
+
 /* STORE*/
 
 function generateStore() {
@@ -347,6 +349,8 @@ function displayStore(inventory) {
 	document.querySelector("#store-list").innerHTML = html;
 }
 
+generateStore()
+
 /* UTILITY */
 
 function rollOnTable(table) {
@@ -360,5 +364,3 @@ function d(sides) {
 function capitalise(str) {
 	return str.charAt(0).toUpperCase() + str.substring(1);
 }
-
-generateClan();
