@@ -268,7 +268,6 @@ function generateClan() {
 
 	clanValues.forEach((v) => {
 		const stake = d(6) + d(6);
-		let descriptor = "";
 		switch (stake) {
 			case 12:
 				// case 2:
@@ -329,7 +328,7 @@ function generateStore() {
 		const item = Object.create(rollOnTable(storeInventory));
 
 		if (d(6) === 6) {
-			item.label = "Faulty " + item.label;
+			item.faulty = true;
 			item.price = item.price > 10 ? d(6) : 1;
 		}
 
@@ -356,11 +355,13 @@ function displayStore(inventory) {
 	for (let i = 0; i < inventory.length; i++) {
 		const item = inventory[i];
 
+		const displayLabel = item.faulty ? `Faulty ${item.label}` : item.label;
+
 		html += "<li>";
-		if (item.count) {
-			html += `${item.count}x ${item.label}: ${item.price}sp each`;
+		if (item.count > 1) {
+			html += `${item.count}x ${displayLabel}: ${item.price}sp each`;
 		} else {
-			html += `${item.label}: ${item.price}sp`;
+			html += `${displayLabel}: ${item.price}sp`;
 		}
 		html += "</li>";
 	}
